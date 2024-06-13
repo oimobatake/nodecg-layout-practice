@@ -1,9 +1,18 @@
 import React from 'react';
+import { useReplicant } from '@nodecg/react-hooks';
+import { Timer } from "../lib/schemas/timer";
 
 export function Index() {
+
+	const [timer, __] = useReplicant<Timer>("timer", {
+		bundle: "nodecg-speedcontrol",
+	  });
+	  console.log(timer?.state);
+
 	return (
 		<>
 			<p>
+				{timer?.time}
 				Hello, I'm one of the graphics in your bundle! I'm where you put the graphics you want to run in your
 				broadcast software!
 			</p>
