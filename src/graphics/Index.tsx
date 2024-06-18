@@ -1,38 +1,37 @@
 import React from 'react';
 import { useReplicant } from '@nodecg/react-hooks';
 import { Timer } from "../lib/schemas/timer";
+import { RunDataActiveRun } from "../lib/schemas/runDataActiveRun";
+import { RunDataArray } from "../lib/schemas/runDataArray";
+import bg from "./test.png";
 
 export function Index() {
 
-	const [timer, __] = useReplicant<Timer>("timer", {
+	// replicantの使い方
+	const [timer, __t] = useReplicant<Timer>("timer", {
 		bundle: "nodecg-speedcontrol",
-	  });
-	  console.log(timer?.state);
+	});
+	console.log(timer?.state);
 
+	// 現在選択されているゲーム(初期値はundefined)
+	const [runDataActiveRun, _rda] = useReplicant<RunDataActiveRun>("runDataActiveRun", {
+		bundle: "nodecg-speedcontrol",
+	});
+	console.log(runDataActiveRun?.game);
+
+	// ゲーム全体のリスト
+	const [runDataArray, _ra] = useReplicant<RunDataArray>("runDataArray", {
+		defaultValue:[],
+		bundle: "nodecg-speedcontrol",
+	})
+	if(runDataArray !== undefined){
+		for(const data of runDataArray){
+			console.log(data);
+		}
+	}
 	return (
 		<>
-			<p>
-				{timer?.time}
-				Hello, I'm one of the graphics in your bundle! I'm where you put the graphics you want to run in your
-				broadcast software!
-			</p>
-
-			<p>
-				To edit me, open "<span className="monospace">src/graphics/Index.tsx</span>" in your favorite text
-				editor or IDE.
-			</p>
-
-			<p>You can use any libraries, frameworks, and tools you want. There are no limits.</p>
-
-			<p>
-				Visit{' '}
-				<a href="https://nodecg.dev" target="_blank" rel="noopener">
-					https://nodecg.dev
-				</a>{' '}
-				for full documentation.
-			</p>
-
-			<p>Have fun!</p>
+			<img src={bg} />
 		</>
 	);
 }
