@@ -4,6 +4,10 @@ import { Timer } from "../lib/schemas/timer";
 import { RunDataActiveRun } from "../lib/schemas/runDataActiveRun";
 import { RunDataArray } from "../lib/schemas/runDataArray";
 import bg from "./test.png";
+import img00 from "./目あけ口あけ.png";
+import img01 from "./目あけ口とじ.png";
+import img02 from "./目とじ口あけ.png";
+import img03 from "./目とじ口とじ.png";
 
 export function Index() {
 
@@ -29,9 +33,14 @@ export function Index() {
 			console.log(data);
 		}
 	}
+
+	// reactだからcssを使う場合はclassName="~"で指定する
 	return (
 		<>
-			<img src={bg} />
+			<img src={img00} />
+			<img src={img01} />
+			<img src={img02} />
+			<img src={img03} />
 		</>
 	);
 }

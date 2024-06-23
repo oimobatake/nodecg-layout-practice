@@ -35,6 +35,12 @@
         "width": 1920,
         "height": 1080,
         "singleInstance": false
+      },
+      {
+        "file": "LearningLayout/Rlearning.html",
+        "width": 1920,
+        "height": 1080,
+        "singleInstance": false
       }
     ]
   },
@@ -61,6 +67,7 @@
   },
   "dependencies": {
     "@nodecg/react-hooks": "^1.0.3",
+    "@types/css-modules": "^1.0.5",
     "@types/react": "*",
     "@types/react-dom": "*",
     "react": "*",

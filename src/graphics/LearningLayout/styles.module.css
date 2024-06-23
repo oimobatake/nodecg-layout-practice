@@ -1,0 +1,59 @@
+.frameDefault{
+    position: absolute;
+    height: 484px;
+    width: 776px;
+}
+.frameLeftTop{
+    top: 100px;
+    left: 345px;
+}
+.frameRightTop{
+    top: 100px;
+    left: 1130px;
+}
+.frameLeftBottom{
+    top: 590px;
+    left: 345px;
+}
+.frameRightBottom{
+    top: 590px;
+    left: 1130px;
+}
+.nameDefault{
+    position: absolute;
+    height: 40px;
+    width: 770px;
+    text-align: center;
+    font-size: 30px;
+    font-weight: bolder;
+}
+.nameLeftTop{    
+    top: 510px;
+    left: 350px;  
+}
+.nameLeftBottom{    
+    top: 1000px;
+    left: 350px;   
+}
+.nameRightTop{
+    top: 510px;
+    left: 1132px;  
+}
+.nameRightBottom{
+    top: 1000px;
+    left: 1132px;  
+}
+.gameTitle{
+    position: absolute;
+    font-size: 60px;
+    font-family: "MS 明朝";
+    top: -50px;
+    left: 350px
+}
+.gameTimer{
+    position: absolute;
+    font-size: 60px;
+    font-family: "MS 明朝";
+    top: -50px;
+    left: 1600px;
+}
