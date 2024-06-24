@@ -1,3 +1,4 @@
+/* フレーム用 */
 .frameDefault{
     position: absolute;
     height: 484px;
@@ -19,30 +20,71 @@
     top: 590px;
     left: 1130px;
 }
+/* プレイヤー名前用 */
 .nameDefault{
-    position: absolute;
-    height: 40px;
-    width: 770px;
     text-align: center;
+    color: #fff;
+    background-color: #0000;
+    width: 770px;
+    height: 40px;
     font-size: 30px;
     font-weight: bolder;
+    position: absolute;
+    border:none;
 }
 .nameLeftTop{    
-    top: 510px;
+    top: 540px;
     left: 350px;  
 }
 .nameLeftBottom{    
-    top: 1000px;
+    top: 1030px;
     left: 350px;   
 }
 .nameRightTop{
-    top: 510px;
+    top: 540px;
     left: 1132px;  
 }
 .nameRightBottom{
-    top: 1000px;
+    top: 1030px;
     left: 1132px;  
 }
+
+/* フェード切り替え */
+.changeNameToCategory{
+    transition: opacity 1s ease-in-out, background-color 1s ease-in-out;
+    opacity: 1;
+}
+.changeHidden{
+    opacity: 0;
+}
+
+
+/* カテゴリ用 */
+.categoryDefault{
+    position: absolute;
+    color:white;
+    background-color: rgba(128, 128, 128, 0.5);
+    width: auto;
+    font-size: 30px;
+}
+.categoryLeftTop{
+    top: 74px;
+    left: 350px;
+}
+.categoryRightTop{
+    top: 74px;
+    left: 1134px;
+}
+.categoryLeftBottom{
+    top: 564px;
+    left: 350px;
+}
+.categoryRightBottom{
+    top: 564px;
+    left: 1134px;
+}
+
+/* タイトル */
 .gameTitle{
     position: absolute;
     font-size: 60px;
@@ -50,6 +92,8 @@
     top: -50px;
     left: 350px
 }
+
+/* タイマー */
 .gameTimer{
     position: absolute;
     font-size: 60px;

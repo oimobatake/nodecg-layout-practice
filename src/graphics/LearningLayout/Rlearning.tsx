@@ -36,9 +36,18 @@ export function Index() {
     // レイアウト構成
     let count = 4; // とりあえず4人用画面
 
-	const playerNames:string[] = 
+	type runnerInfo = {
+		name:string;
+		category:string
+	}
+
+	// 走者情報
+	const runnnerInfos:runnerInfo[] = 
 	[
-		"ばたけ。/batake_", "すりぴ/ThreePeaks", "セレナーデ☆ゆうき/serenade_yuuki", "ハリマ/harima_moko"
+		{ name:"ばたけ。/batake_", category: "Any%"},
+		{ name:"すりぴ/ThreePeaks", category: "100%" },
+		{ name:"セレナーデ☆ゆうき/serenade_yuuki", category:"GlitchLess" },
+		{ name:"ハリマ/harima_moko", category:"No Mager Glitchs" },
 	];
 
     // css関連はここで分岐してみる
@@ -61,14 +70,32 @@ export function Index() {
     ));
 	// 名前位置
 	const names = Array.from({length: count}, (_, length) =>(
-		<p className={`${nameStyle[length]} ${styles.nameDefault}`}>{playerNames[length]}</p>
+		<div data-name="player" className={`${nameStyle[length]} ${styles.nameDefault} ${styles.changeNameToCategory}`}> {runnnerInfos[length].name} </div>
 	));
+
+	// 名前とカテゴリ切り替え
+	let i = 0;
+	function showName(){
+		// divのdata-nameセレクタを取得してる
+		const namesAndCategorys = document.querySelectorAll('[data-name="player"]');
+		namesAndCategorys.forEach((element, index) => {
+			element.classList.add(styles.changeHidden);
+			setTimeout(()=>{
+				element.classList.remove(styles.changeHidden);
+				element.textContent = (i == 0) ? runnnerInfos[index].name : runnnerInfos[index].category;
+			}, 1000);
+		});
+		i = (i + 1) % 2;
+	}
+	setInterval(showName, 8000);
+
+	// 
 	// reactだからcssを使う場合はclassName="~"で指定する
 	return (
 		<>
         <img src={bg} />
-        <div>{images}</div>
-		<div>{names}</div>
+        {images}
+		{names}
         <p className={styles.gameTitle}>RTALearning レイアウトテスト</p>
 		<p className={styles.gameTimer}>{timer?.time}</p>
 		</>
