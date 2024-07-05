@@ -24,7 +24,7 @@
       {
         "name": "panel",
         "title": "Panel",
-        "width": 2,
+        "width": 3,
         "file": "panel.html",
         "headerColor": "#525F78"
       }

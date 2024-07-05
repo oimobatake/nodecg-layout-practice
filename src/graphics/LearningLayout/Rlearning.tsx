@@ -6,6 +6,7 @@ import { RunDataArray } from "../../lib/schemas/runDataArray";
 import styles from "./styles.module.css"
 import bg from "./bg.png";
 import frame from "./Rlearning-frame.png";
+import type { GameInfoData } from '../../types/schemas/gameInfoData';
 
 export function Index() {
 
@@ -32,23 +33,13 @@ export function Index() {
 		}
 	}
 
+	const [gameInfo, s_] = useReplicant<GameInfoData>("gameInfo", {
+		bundle: "nodecg-layout-practice",
+	});
+
     //------------------------------------------------------------------------
     // レイアウト構成
     let count = 4; // とりあえず4人用画面
-
-	type runnerInfo = {
-		name:string;
-		category:string
-	}
-
-	// 走者情報
-	const runnnerInfos:runnerInfo[] = 
-	[
-		{ name:"ばたけ。/batake_", category: "Any%"},
-		{ name:"すりぴ/ThreePeaks", category: "100%" },
-		{ name:"セレナーデ☆ゆうき/serenade_yuuki", category:"GlitchLess" },
-		{ name:"ハリマ/harima_moko", category:"No Mager Glitchs" },
-	];
 
     // css関連はここで分岐してみる
     const frameStyle:string[] = [
@@ -70,7 +61,7 @@ export function Index() {
     ));
 	// 名前位置
 	const names = Array.from({length: count}, (_, length) =>(
-		<div data-name="player" className={`${nameStyle[length]} ${styles.nameDefault} ${styles.changeNameToCategory}`}> {runnnerInfos[length].name} </div>
+		<div data-name="player" className={`${nameStyle[length]} ${styles.nameDefault} ${styles.changeNameToCategory}`}> {gameInfo?.players[length]} </div>
 	));
 
 	// 名前とカテゴリ切り替え
@@ -82,22 +73,21 @@ export function Index() {
 			element.classList.add(styles.changeHidden);
 			setTimeout(()=>{
 				element.classList.remove(styles.changeHidden);
-				element.textContent = (i == 0) ? runnnerInfos[index].name : runnnerInfos[index].category;
+				element.textContent = (i == 0) ? gameInfo?.players[index] as string : gameInfo?.categories[index] as string;
 			}, 1000);
 		});
 		i = (i + 1) % 2;
 	}
 	setInterval(showName, 8000);
 
-	// 
 	// reactだからcssを使う場合はclassName="~"で指定する
 	return (
 		<>
         <img src={bg} />
         {images}
 		{names}
-        <p className={styles.gameTitle}>RTALearning レイアウトテスト</p>
-		<p className={styles.gameTimer}>{timer?.time}</p>
+        <p className={styles.gameTitle}>{gameInfo?.gameName}</p>
+		<p className={styles.gameTimer}>{gameInfo?.estimatedTime}</p>
 		</>
 	);
 }
