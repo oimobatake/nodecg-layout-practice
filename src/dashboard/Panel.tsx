@@ -1,19 +1,41 @@
-import React, { useState, useEffect } from 'react';
+import React,{ useState } from 'react';
 import { useReplicant } from "@nodecg/react-hooks";
 import { GameInfoData } from '../types/schemas/gameInfoData';
-import { platform } from 'os';
 
-interface GAmePanelProps{}
+interface GamePanelProps{}
 
-export function GamePamel(){
-	const gameInfoReplicant = nodecg.Replicant<GameInfoData>('gameInfo');
-	const [gameInfo, setGameInfo] = useState<GameInfoData>({
+export const gameInfoData = nodecg.Replicant<GameInfoData>('gameInfo');
+
+export function GamePanel(){
+
+	const playerCount = 4;
+	const [gameInfo, setGameInfo] = useReplicant<GameInfoData>('gameInfo', {
+		bundle: "nodecg-layout-practice",
+		defaultValue: {
+			gameName:'',
+			players: ['','','',''],
+			categories:['','','',''],
+			estimatedTime:''
+		}
+	});
+	if(gameInfo === undefined) return;
+
+	if(gameInfo.players.length < playerCount) {
+		setGameInfo({...gameInfo, players:[gameInfo.players[0],gameInfo.players[1],gameInfo.players[2],gameInfo.players[3]]})
+	}
+	if(gameInfo.categories.length < playerCount){
+		setGameInfo({...gameInfo, categories:[gameInfo.categories[0],gameInfo.categories[1],gameInfo.categories[2],gameInfo.categories[3]]})
+	}
+
+	/*
+	const [tempGameInfo, setTempGameInfo] = useState<GameInfoData>({
 		gameName:'',
 		players: ['','','',''],
 		categories:['','','',''],
 		estimatedTime:''}
 	);
-
+	*/
+	/*
 	// changeイベントの発行
 	useEffect(()=>{
 		gameInfoReplicant.on('change', (newValue: GameInfoData | undefined) =>{
@@ -22,6 +44,7 @@ export function GamePamel(){
 			}
 		});
 	}, []);
+	*/
 
 	// プレイヤー名変更
 	const handlePlayerChange = (index:number, value: string) => {
@@ -54,9 +77,10 @@ export function GamePamel(){
 	return (
 		<div className="game-panel">
 		  <h2>Game Information</h2>
+		  <hr/>
 		  <form onSubmit={handleSubmit}>
 			<div className="form-group">
-			  <label htmlFor="gameName">Game Name:</label>
+			  <label htmlFor="gameName">Game Name:</label><br></br>
 			  <input
 				type="text"
 				id="gameName"
@@ -64,9 +88,9 @@ export function GamePamel(){
 				onChange={(e) => setGameInfo({ ...gameInfo, gameName: e.target.value })}
 			  />
 			</div>
-	
+			<hr/>
 			<div className="form-group">
-			  <label>Players:</label>
+			  <label>Players:</label><br></br>
 			  {gameInfo.players.map((player, index) => (
 				<input
 				  key={index}
@@ -77,30 +101,31 @@ export function GamePamel(){
 				/>
 			  ))}
 			</div>
-
+			<hr/>
 			<div className="form-group">
-          <label>Categories:</label>
-          {gameInfo.categories.map((category, index) => (
-            <input
-              key={index}
-              type="text"
-              value={category}
-              onChange={(e) => handleCategoryChange(index, e.target.value)}
-              placeholder={`Category ${index + 1}`}
-            />
-          ))}
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="estimatedTime">Estimated Time:</label>
-          <input
-            type="text"
-            id="estimatedTime"
-            value={gameInfo.estimatedTime}
-            onChange={(e) => setGameInfo({ ...gameInfo, estimatedTime: e.target.value })}
-            placeholder="HH:MM:SS"
-          />
-        </div>
+			<label>Categories:</label><br></br>
+			{gameInfo.categories.map((category, index) => (
+				<input
+				key={index}
+				type="text"
+				value={category}
+				onChange={(e) => handleCategoryChange(index, e.target.value)}
+				placeholder={`Category ${index + 1}`}
+				/>
+			))}
+			</div>
+			<hr/>
+			<div className="form-group">
+			<label htmlFor="estimatedTime">Estimated Time:</label><br></br>
+			<input
+				type="text"
+				id="estimatedTime"
+				value={gameInfo.estimatedTime}
+				onChange={(e) => setGameInfo({ ...gameInfo, estimatedTime: e.target.value })}
+				placeholder="HH:MM:SS"
+			/>
+			</div>
+			<br></br>
         <button type="submit">Update</button>
       </form>
     </div>
@@ -110,7 +135,7 @@ export function GamePamel(){
 export function Panel() {
 	return(
 		<>
-		{GamePamel()}
+		{GamePanel()}
 		</>
 	);
 }

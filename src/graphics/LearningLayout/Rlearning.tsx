@@ -8,6 +8,7 @@ import bg from "./bg.png";
 import frame from "./Rlearning-frame.png";
 import type { GameInfoData } from '../../types/schemas/gameInfoData';
 
+let to:NodeJS.Timeout;
 export function Index() {
 
 	// replicantの使い方
@@ -78,7 +79,8 @@ export function Index() {
 		});
 		i = (i + 1) % 2;
 	}
-	setInterval(showName, 8000);
+	if(to)clearInterval(to);
+	to = setInterval(showName, 8000);
 
 	// reactだからcssを使う場合はclassName="~"で指定する
 	return (
