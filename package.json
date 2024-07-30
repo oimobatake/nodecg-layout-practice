@@ -27,6 +27,13 @@
         "width": 3,
         "file": "panel.html",
         "headerColor": "#525F78"
+      },
+      {
+        "name": "countDown",
+        "title": "CountDownTimer",
+        "width": 3,
+        "file": "count-down-timer/countdown.html",
+        "headerColor": "#525F78"
       }
     ],
     "graphics": [

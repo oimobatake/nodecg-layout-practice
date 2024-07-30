@@ -101,3 +101,11 @@
     top: -50px;
     left: 1600px;
 }
+
+.leftTopStreamFrame{
+    width: 770px;
+    height: 434px;
+    position: relative;
+    top: -993px;
+    left: 340px;
+}

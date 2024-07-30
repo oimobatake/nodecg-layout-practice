@@ -15,5 +15,34 @@
 	<body>
 		<div id="root"></div>
 		<script type="module" src="./Rlearning-bootstrap.tsx"></script>
+
+		<!-- Add a placeholder for the Twitch embed -->
+		<div id="twitch-embed">
+			<iframe
+			 src="https://player.twitch.tv/?channel=isogai2971&parent=localhost"
+			 frameborder="0" allowfullscreen="true" scrolling="no"
+			 class="leftTopStreamFrame"></iframe>
+
+			 <iframe src="https://player.twitch.tv/?channel=harima_moko&parent=localhost" 
+			 frameborder="0" allowfullscreen="true" scrolling="no"
+			 class="rightTopStreamFrame"></iframe>
+		</div>
+		<style>
+			.leftTopStreamFrame{
+				position: relative;
+				top: -993px;
+				left: 340px;
+				width: 770px;
+				height: 434px;
+			}
+
+			.rightTopStreamFrame{
+				position: relative;
+				top: -993px;
+				left: 350px;
+				width: 770px;
+				height: 434px;
+			}
+		</style>
 	</body>
 </html>

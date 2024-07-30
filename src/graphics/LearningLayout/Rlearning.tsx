@@ -7,6 +7,7 @@ import styles from "./styles.module.css"
 import bg from "./bg.png";
 import frame from "./Rlearning-frame.png";
 import type { GameInfoData } from '../../types/schemas/gameInfoData';
+import type { TimerState } from '../../types/schemas';
 
 let to:NodeJS.Timeout;
 export function Index() {
@@ -28,6 +29,16 @@ export function Index() {
 		defaultValue:[],
 		bundle: "nodecg-speedcontrol",
 	})
+
+	// カウントダウンタイマー
+	const [timerState] = useReplicant<TimerState>('timerState', {
+		defaultValue:{
+			time:0,
+			isRunning:false,
+			initialTime:0
+		}
+	});
+
 	if(runDataArray !== undefined){
 		for(const data of runDataArray){
 			console.log(data);
@@ -37,6 +48,14 @@ export function Index() {
 	const [gameInfo, s_] = useReplicant<GameInfoData>("gameInfo", {
 		bundle: "nodecg-layout-practice",
 	});
+
+	const formatTime = (time:number | undefined) =>{
+		if(time === undefined) return``;
+		const hours = Math.floor(time / 3600);
+		const minutes = Math.floor((time % 3600) / 60);
+		const seconds = time % 60;
+		return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+	};
 
     //------------------------------------------------------------------------
     // レイアウト構成
@@ -89,7 +108,9 @@ export function Index() {
         {images}
 		{names}
         <p className={styles.gameTitle}>{gameInfo?.gameName}</p>
-		<p className={styles.gameTimer}>{gameInfo?.estimatedTime}</p>
+		<p className={styles.gameTimer} style={{ 
+			color: timerState?.time === 0 ? 'gray' : 'black'
+		}}>{formatTime(timerState?.time)}</p>
 		</>
 	);
 }
