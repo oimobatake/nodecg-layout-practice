@@ -49,10 +49,11 @@ const CountDownTimer: React.FC = () => {
     // startボタン
     const handleStart = () =>{
         if(timerState === undefined) return;
+
+        // memo:ちゃんと型を指定してコピーすれば問題なく変更が掛かる
         const p:TimerState = {
-            time:timerState.time,
+            ...timerState,
             isRunning:true,
-            initialTime:timerState.initialTime
         };
         setTimerState(p);
     }
@@ -61,9 +62,8 @@ const CountDownTimer: React.FC = () => {
     const handleStop = ()=>{
         if(timerState === undefined) return;
         const p:TimerState = {
-            time:timerState.time,
-            isRunning:false,
-            initialTime:timerState.initialTime
+            ...timerState,
+            isRunning:false
         };
         setTimerState(p);
     }
