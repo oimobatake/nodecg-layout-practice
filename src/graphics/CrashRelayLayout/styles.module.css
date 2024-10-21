@@ -88,7 +88,6 @@
 .gameTitle{
     position: absolute;
     font-size: 60px;
-    font-family: "MS 明朝";
     top: -50px;
     left: 350px
 }
@@ -97,15 +96,42 @@
 .gameTimer{
     position: absolute;
     font-size: 60px;
-    font-family: "MS 明朝";
     top: -50px;
     left: 1600px;
 }
 
 .leftTopStreamFrame{
+    position: absolute;
+    top: 103px;
+    left: 348px;
     width: 770px;
-    height: 434px;
-    position: relative;
-    top: -993px;
-    left: 340px;
+    height: 433px;
+    border-width: 0;
+}
+
+.rightTopStreamFrame{
+    position: absolute;
+    top: 103px;
+    left: 1133px;
+    width: 770px;
+    height: 433px;
+    border-width: 0;
+}
+
+.leftBottomStreamFrame{
+    position: absolute;
+    top: 594px;
+    left: 348px;
+    width: 770px;
+    height: 433px;
+    border-width: 0;
+}
+
+.rightBottomStreamFrame{
+    position: absolute;
+    top: 594px;
+    left: 1133px;
+    width: 770px;
+    height: 433px;
+    border-width: 0;
 }

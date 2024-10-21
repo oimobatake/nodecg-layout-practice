@@ -111,6 +111,25 @@ export function Index() {
 		<p className={styles.gameTimer} style={{ 
 			color: timerState?.time === 0 ? 'gray' : 'black'
 		}}>{formatTime(timerState?.time)}</p>
+
+		<div id="twitch-embed">
+			<iframe
+			 src="https://player.twitch.tv/?channel=isogai2971&parent=localhost"
+			 allowFullScreen
+			 className={styles.leftTopStreamFrame} />
+
+			 <iframe src="https://player.twitch.tv/?channel=harima_moko&parent=localhost" 
+			 allowFullScreen
+			 className={styles.rightTopStreamFrame}></iframe>
+
+			 <iframe src="https://player.twitch.tv/?channel=rosalie_vt&parent=localhost" 
+			 allowFullScreen
+			 className={styles.leftBottomStreamFrame}></iframe>
+
+			 <iframe src="https://player.twitch.tv/?channel=fujikura123&parent=localhost" 
+			 allowFullScreen
+			 className={styles.rightBottomStreamFrame}></iframe>
+		</div>
 		</>
 	);
 }

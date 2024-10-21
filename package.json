@@ -6,7 +6,7 @@
   "author": {
     "name": "batake_",
     "email": "batake25@gmail.com",
-    "url": ""
+    "url": "https://example.com"
   },
   "files": [
     "dashboard",
@@ -50,7 +50,7 @@
         "singleInstance": false
       },
       {
-        "file": "CrashAllGemsTeamRelay/index.html",
+        "file": "CrashRelayLayout/index.html",
         "width": 1920,
         "height": 1080,
         "singleInstance": false
