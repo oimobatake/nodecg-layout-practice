@@ -6,60 +6,36 @@ import { RunDataArray } from "../../lib/schemas/runDataArray";
 import styles from "./styles.module.css"
 import bg from "./crash_bg.png";
 import frame from "./frame.png";
+import logo from "./AllGems_event_logo.png";
 import type { GameInfoData } from '../../types/schemas/gameInfoData';
 import type { TimerState } from '../../types/schemas';
+
+type PlayerData = {
+	id: string,
+	streamType: string,
+	position: string
+}
 
 let to:NodeJS.Timeout;
 export function Index() {
 
-	// replicantの使い方
+	// timer
 	const [timer, __t] = useReplicant<Timer>("timer", {
 		bundle: "nodecg-speedcontrol",
 	});
-	console.log(timer?.state);
 
 	// 現在選択されているゲーム(初期値はundefined)
 	const [runDataActiveRun, _rda] = useReplicant<RunDataActiveRun>("runDataActiveRun", {
 		bundle: "nodecg-speedcontrol",
 	});
-	console.log(runDataActiveRun?.game);
 
-	// ゲーム全体のリスト
-	const [runDataArray, _ra] = useReplicant<RunDataArray>("runDataArray", {
-		defaultValue:[],
-		bundle: "nodecg-speedcontrol",
-	})
-
-	// カウントダウンタイマー
-	const [timerState] = useReplicant<TimerState>('timerState', {
-		defaultValue:{
-			time:0,
-			isRunning:false,
-			initialTime:0
-		}
-	});
-
-	if(runDataArray !== undefined){
-		for(const data of runDataArray){
-			console.log(data);
-		}
-	}
-
-	const [gameInfo, s_] = useReplicant<GameInfoData>("gameInfo", {
-		bundle: "nodecg-layout-practice",
-	});
-
-	const formatTime = (time:number | undefined) =>{
-		if(time === undefined) return``;
-		const hours = Math.floor(time / 3600);
-		const minutes = Math.floor((time % 3600) / 60);
-		const seconds = time % 60;
-		return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-	};
+	//const [gameInfo, s_] = useReplicant<GameInfoData>("gameInfo", {
+	//	bundle: "nodecg-layout-practice",
+	//});
 
     //------------------------------------------------------------------------
     // レイアウト構成
-    let count = 4; // とりあえず4人用画面
+    const count = 4; // とりあえず4人用画面
 
     // css関連はここで分岐してみる
     const frameStyle:string[] = [
@@ -74,62 +50,86 @@ export function Index() {
 		`${styles.nameLeftBottom}`,
 		`${styles.nameRightBottom}`,
 	];
+	const displayStyle:string[]=[
+		`${styles.leftTopStreamFrame}`,
+		`${styles.rightTopStreamFrame}`,
+		`${styles.leftBottomStreamFrame}`,
+		`${styles.rightBottomStreamFrame}`,
+	];
 
-	// 配列に諸々定義してる？
+	// 枠の定義
     const images = Array.from({length: count}, (_, length) =>(
         <img src={frame} className={`${frameStyle[length]} ${styles.frameDefault}`}/>
     ));
 	// 名前位置
 	const names = Array.from({length: count}, (_, length) =>(
-		<div data-name="player" className={`${nameStyle[length]} ${styles.nameDefault} ${styles.changeNameToCategory}`}> {gameInfo?.players[length]} </div>
+		<div data-name="player" className={`${nameStyle[length]} ${styles.nameDefault} ${styles.changeNameToCategory}`}> {runDataActiveRun?.teams[length].players[0].name} </div>
 	));
-
-	// 名前とカテゴリ切り替え
-	let i = 0;
-	function showName(){
-		// divのdata-nameセレクタを取得してる
-		const namesAndCategorys = document.querySelectorAll('[data-name="player"]');
-		namesAndCategorys.forEach((element, index) => {
-			element.classList.add(styles.changeHidden);
-			setTimeout(()=>{
-				element.classList.remove(styles.changeHidden);
-				element.textContent = (i == 0) ? gameInfo?.players[index] as string : gameInfo?.categories[index] as string;
-			}, 1000);
-		});
-		i = (i + 1) % 2;
+	
+	// 配信画面の設定
+	const mediaIframe = (data:{
+		id: string,
+		streamType: string,
+		position: string
+	})=> {
+		if(data.streamType === 'twitch'){
+			const URL = `https://player.twitch.tv/?channel=${data.id}&parent=localhost`;
+			return (
+				<div id="twitch-embed">
+					<iframe
+					src={URL}
+					allowFullScreen
+					className={data.position} />
+				</div>
+			);
+		}else{
+			const URL = `https://www.youtube.com/embed/${data.id}?si=yTWjuIAALst09TKk`;
+			return (
+				<iframe
+				src={URL}
+				title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+				referrerPolicy="strict-origin-when-cross-origin"
+				allowFullScreen
+				className={data.position}></iframe>
+			);
+		}
 	}
-	if(to)clearInterval(to);
-	to = setInterval(showName, 8000);
 
 	// reactだからcssを使う場合はclassName="~"で指定する
 	return (
 		<>
-        <img src={bg} />
-        {images}
-		{names}
-        <p className={styles.gameTitle}>{gameInfo?.gameName}</p>
-		<p className={styles.gameTimer} style={{ 
-			color: timerState?.time === 0 ? 'gray' : 'black'
-		}}>{formatTime(timerState?.time)}</p>
+			<img src={bg} />
+			<img src={logo} className={styles.eventLogo} />
+			{images}
+			{names}
+			<p className={styles.gameTitle}>{runDataActiveRun?.game}</p>
+			<p className={styles.gameTimer} style={{ 
+				color: timer?.state === 'finished' ? 'green' : 'black'
+			}}>{timer?.time}</p>
 
-		<div id="twitch-embed">
-			<iframe
-			 src="https://player.twitch.tv/?channel=isogai2971&parent=localhost"
-			 allowFullScreen
-			 className={styles.leftTopStreamFrame} />
+			{mediaIframe({
+				id : runDataActiveRun?.teams[0].players[0].social.twitch as string,
+				streamType: runDataActiveRun?.teams[0].players[0].country as string,
+				position: displayStyle[0],
+			})}
 
-			 <iframe src="https://player.twitch.tv/?channel=harima_moko&parent=localhost" 
-			 allowFullScreen
-			 className={styles.rightTopStreamFrame}></iframe>
+			{mediaIframe({
+				id : runDataActiveRun?.teams[1].players[0].social.twitch as string,
+				streamType: runDataActiveRun?.teams[1].players[0].country as string,
+				position: displayStyle[1],
+			})}
 
-			 <iframe src="https://player.twitch.tv/?channel=rosalie_vt&parent=localhost" 
-			 allowFullScreen
-			 className={styles.leftBottomStreamFrame}></iframe>
+			{mediaIframe({
+				id : runDataActiveRun?.teams[2].players[0].social.twitch as string,
+				streamType: runDataActiveRun?.teams[2].players[0].country as string,
+				position: displayStyle[2],
+			})}
 
-			 <iframe src="https://player.twitch.tv/?channel=fujikura123&parent=localhost" 
-			 allowFullScreen
-			 className={styles.rightBottomStreamFrame}></iframe>
-		</div>
+			{mediaIframe({
+				id : runDataActiveRun?.teams[3].players[0].social.twitch as string,
+				streamType: runDataActiveRun?.teams[3].players[0].country as string,
+				position: displayStyle[3],
+			})}
 		</>
 	);
 }

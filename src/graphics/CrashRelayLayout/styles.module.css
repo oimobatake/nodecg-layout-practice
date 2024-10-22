@@ -32,20 +32,20 @@
     position: absolute;
     border:none;
 }
-.nameLeftTop{    
-    top: 540px;
+.nameLeftTop{
+    top: 544px;
     left: 350px;  
 }
 .nameLeftBottom{    
-    top: 1030px;
+    top: 1034px;
     left: 350px;   
 }
 .nameRightTop{
-    top: 540px;
+    top: 544px;
     left: 1132px;  
 }
 .nameRightBottom{
-    top: 1030px;
+    top: 1034px;
     left: 1132px;  
 }
 
@@ -134,4 +134,12 @@
     width: 770px;
     height: 433px;
     border-width: 0;
+}
+
+.eventLogo{
+    position: absolute;
+    top: 860px;
+    left: 0px;
+    width: 340px;
+    margin: 0;
 }
