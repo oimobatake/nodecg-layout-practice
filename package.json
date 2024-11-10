@@ -38,12 +38,6 @@
     ],
     "graphics": [
       {
-        "file": "index.html",
-        "width": 1920,
-        "height": 1080,
-        "singleInstance": false
-      },
-      {
         "file": "LearningLayout/Rlearning.html",
         "width": 1920,
         "height": 1080,

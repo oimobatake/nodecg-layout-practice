@@ -2,25 +2,15 @@ import React from 'react';
 import { useReplicant } from '@nodecg/react-hooks';
 import { Timer } from "../../lib/schemas/timer";
 import { RunDataActiveRun } from "../../lib/schemas/runDataActiveRun";
-import { RunDataArray } from "../../lib/schemas/runDataArray";
-import styles from "./styles.module.css"
+import styles from "./styles.module.css";
 import bg from "./crash_bg.png";
-import frame from "./frame.png";
+import frame from "./crash_frame.png";
 import logo from "./AllGems_event_logo.png";
-import type { GameInfoData } from '../../types/schemas/gameInfoData';
-import type { TimerState } from '../../types/schemas';
 
-type PlayerData = {
-	id: string,
-	streamType: string,
-	position: string
-}
-
-let to:NodeJS.Timeout;
 export function Index() {
 
 	// timer
-	const [timer, __t] = useReplicant<Timer>("timer", {
+	const [gameTimer, _gTimer] = useReplicant<Timer>("timer", {
 		bundle: "nodecg-speedcontrol",
 	});
 
@@ -28,10 +18,6 @@ export function Index() {
 	const [runDataActiveRun, _rda] = useReplicant<RunDataActiveRun>("runDataActiveRun", {
 		bundle: "nodecg-speedcontrol",
 	});
-
-	//const [gameInfo, s_] = useReplicant<GameInfoData>("gameInfo", {
-	//	bundle: "nodecg-layout-practice",
-	//});
 
     //------------------------------------------------------------------------
     // レイアウト構成
@@ -56,6 +42,8 @@ export function Index() {
 		`${styles.leftBottomStreamFrame}`,
 		`${styles.rightBottomStreamFrame}`,
 	];
+	let indivKeys:string[] = [];
+	for (let key in gameTimer?.teamFinishTimes) indivKeys.push(key);
 
 	// 枠の定義
     const images = Array.from({length: count}, (_, length) =>(
@@ -64,6 +52,12 @@ export function Index() {
 	// 名前位置
 	const names = Array.from({length: count}, (_, length) =>(
 		<div data-name="player" className={`${nameStyle[length]} ${styles.nameDefault} ${styles.changeNameToCategory}`}> {runDataActiveRun?.teams[length].players[0].name} </div>
+	));
+	// 個別タイマー
+	const individualTime = Array.from({length: indivKeys.length}, (_, length) =>(
+		<div className={`${styles.gameTimer}`} style={{color: 'yellow'}}>
+			{gameTimer?.teamFinishTimes[indivKeys[length]].time}
+		</div>
 	));
 	
 	// 配信画面の設定
@@ -102,10 +96,14 @@ export function Index() {
 			<img src={logo} className={styles.eventLogo} />
 			{images}
 			{names}
+			{individualTime}
 			<p className={styles.gameTitle}>{runDataActiveRun?.game}</p>
 			<p className={styles.gameTimer} style={{ 
-				color: timer?.state === 'finished' ? 'green' : 'black'
-			}}>{timer?.time}</p>
+				color: gameTimer?.state === 'finished' ? 'yellow' : 'ghostwhite',
+			}}>{gameTimer?.time}</p>
+
+			<p className={styles.estimateBase}>{runDataActiveRun?.region}</p>
+			<p className={styles.estimateTimer}>{runDataActiveRun?.estimate}</p>
 
 			{mediaIframe({
 				id : runDataActiveRun?.teams[0].players[0].social.twitch as string,

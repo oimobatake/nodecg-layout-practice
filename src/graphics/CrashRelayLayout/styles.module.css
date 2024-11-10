@@ -23,7 +23,6 @@
 /* プレイヤー名前用 */
 .nameDefault{
     text-align: center;
-    color: #fff;
     background-color: #0000;
     width: 770px;
     height: 40px;
@@ -32,21 +31,49 @@
     position: absolute;
     border:none;
 }
+/*Aチーム*/
 .nameLeftTop{
     top: 544px;
-    left: 350px;  
+    left: 350px;
+
+    background: linear-gradient(180deg, #ffa137 0%, #ff0000 50px);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke: 0.5px #000000;
 }
-.nameLeftBottom{    
-    top: 1034px;
-    left: 350px;   
-}
+/*Bチーム*/
 .nameRightTop{
     top: 544px;
-    left: 1132px;  
+    left: 1132px;
+
+    background: linear-gradient(180deg, #37f7ff 0%, #005aff 50%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke: 0.5px #000000;
 }
+/*Cチーム*/
+.nameLeftBottom{    
+    top: 1034px;
+    left: 350px;
+    
+    background: linear-gradient(180deg, #37ff80 0%, #03ad00 50%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke: 0.5px #000000;
+}
+/*Dチーム*/
 .nameRightBottom{
     top: 1034px;
-    left: 1132px;  
+    left: 1132px;
+
+    background: linear-gradient(180deg, #ff8637 0%, #ffef02 50%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke: 0.5px #000000;
 }
 
 /* フェード切り替え */
@@ -57,7 +84,6 @@
 .changeHidden{
     opacity: 0;
 }
-
 
 /* カテゴリ用 */
 .categoryDefault{
@@ -86,18 +112,21 @@
 
 /* タイトル */
 .gameTitle{
+    color: orange;
+    text-shadow: 3px 3px #a10000;
+    font-size: 66px;
     position: absolute;
-    font-size: 60px;
     top: -50px;
-    left: 350px
+    left: 350px;
 }
 
 /* タイマー */
 .gameTimer{
     position: absolute;
-    font-size: 60px;
-    top: -50px;
+    font-size: 70px;
+    top: -54px;
     left: 1600px;
+    text-shadow: 3px 3px black;
 }
 
 .leftTopStreamFrame{
@@ -142,4 +171,21 @@
     left: 0px;
     width: 340px;
     margin: 0;
+}
+
+/* 参考タイム */
+.estimateBase{
+    color: #ffdb02;
+    text-shadow: 3px 3px #a12500;
+    font-size: 60px;
+    position: absolute;
+    top: 40px;
+}
+.estimateTimer{
+    color: #ff6d00;
+    text-shadow: 3px 3px #7a2b00;
+    font-size: 50px;
+    position: absolute;
+    top: 120px;
+    left: 100px;
 }
