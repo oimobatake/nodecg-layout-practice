@@ -6,6 +6,7 @@ import styles from "./styles.module.css";
 import bg from "./crash_bg.png";
 import frame from "./crash_frame.png";
 import logo from "./AllGems_event_logo.png";
+import { RunFinishTimes } from '../../lib/schemas';
 
 export function Index() {
 
@@ -18,6 +19,10 @@ export function Index() {
 	const [runDataActiveRun, _rda] = useReplicant<RunDataActiveRun>("runDataActiveRun", {
 		bundle: "nodecg-speedcontrol",
 	});
+
+	const [runFinishTime, _rft] = useReplicant<RunFinishTimes>("runFinishTimes", {
+		bundle: "nodecg-speedcontrol",
+	})
 
     //------------------------------------------------------------------------
     // レイアウト構成
@@ -42,14 +47,40 @@ export function Index() {
 		`${styles.leftBottomStreamFrame}`,
 		`${styles.rightBottomStreamFrame}`,
 	];
-	const individualTimeStyle:string[]=[
-		`${styles.leftTopTimer}`,
-		`${styles.rightTopTimer}`,
-		`${styles.leftBottomTimer}`,
-		`${styles.rightBottomTimer}`,
-	];
+
+	// クリアタイム表示スタイル位置
+	const individualTimeStyle:{[key:string]: string} = {};
+	if(runDataActiveRun){
+		for(const data of runDataActiveRun?.teams){
+
+			let style = "";
+			switch(data.name){
+				case "Aチーム":
+					style = `${styles.leftTopTimer}`;
+					break;
+				case "Bチーム":
+					style = `${styles.rightTopTimer}`;
+					break;
+				case "Cチーム":
+					style = `${styles.leftBottomTimer}`;
+					break;
+				case "Dチーム":
+					style = `${styles.rightBottomTimer}`;
+					break;
+			}
+			individualTimeStyle[data.id] = style;
+		}
+		console.log("データ")
+		console.log(individualTimeStyle);
+	}
+
 	let indivKeys:string[] = [];
-	for (let key in gameTimer?.teamFinishTimes) indivKeys.push(key);
+	for (let key in gameTimer?.teamFinishTimes){
+		if(key !== undefined){
+			indivKeys.push(key);
+		}
+	}
+	console.log(indivKeys);
 
 	// 枠の定義
     const images = Array.from({length: count}, (_, length) =>(
@@ -60,11 +91,15 @@ export function Index() {
 		<div data-name="player" className={`${nameStyle[length]} ${styles.nameDefault} ${styles.changeNameToCategory}`}> {runDataActiveRun?.teams[length].players[0].name} </div>
 	));
 	// 個別タイマー
-	const individualTime = Array.from({length: indivKeys.length}, (_, length) =>(
-		<div className={`${individualTimeStyle[length]}`}>
-			{gameTimer?.teamFinishTimes[indivKeys[length]].time}
-		</div>
-	));
+	let individualTime: React.JSX.Element[] = [];
+	
+	if(gameTimer?.teamFinishTimes){
+		individualTime = Array.from({length: indivKeys.length}, (_, length) =>(
+			<div className={`${individualTimeStyle[indivKeys[length]]}`}>
+				{gameTimer?.teamFinishTimes[indivKeys[length]].time}
+			</div>
+		));
+	}
 	
 	// 配信画面の設定
 	const mediaIframe = (data:{
