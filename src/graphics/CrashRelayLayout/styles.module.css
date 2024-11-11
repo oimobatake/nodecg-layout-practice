@@ -129,6 +129,42 @@
     text-shadow: 3px 3px black;
 }
 
+.leftTopTimer{
+    text-shadow: 3px 3px #000;
+    color: #ff0;
+    font-size: 35px;
+    position: absolute;
+    top: 541px;
+    left: 960px;
+}
+
+.rightTopTimer{
+    text-shadow: 3px 3px #000;
+    color: #ff0;
+    font-size: 35px;
+    position: absolute;
+    top: 541px;
+    left: 1740px;
+}
+
+.leftBottomTimer{
+    text-shadow: 3px 3px #000;
+    color: #ff0;
+    font-size: 35px;
+    position: absolute;
+    top: 1032px;
+    left: 960px;
+}
+
+.rightBottomTimer{
+    text-shadow: 3px 3px #000;
+    color: #ff0;
+    font-size: 35px;
+    position: absolute;
+    top: 1032px;
+    left: 1740px;
+}
+
 .leftTopStreamFrame{
     position: absolute;
     top: 103px;

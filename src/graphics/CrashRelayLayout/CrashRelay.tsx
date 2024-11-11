@@ -42,6 +42,12 @@ export function Index() {
 		`${styles.leftBottomStreamFrame}`,
 		`${styles.rightBottomStreamFrame}`,
 	];
+	const individualTimeStyle:string[]=[
+		`${styles.leftTopTimer}`,
+		`${styles.rightTopTimer}`,
+		`${styles.leftBottomTimer}`,
+		`${styles.rightBottomTimer}`,
+	];
 	let indivKeys:string[] = [];
 	for (let key in gameTimer?.teamFinishTimes) indivKeys.push(key);
 
@@ -55,7 +61,7 @@ export function Index() {
 	));
 	// 個別タイマー
 	const individualTime = Array.from({length: indivKeys.length}, (_, length) =>(
-		<div className={`${styles.gameTimer}`} style={{color: 'yellow'}}>
+		<div className={`${individualTimeStyle[length]}`}>
 			{gameTimer?.teamFinishTimes[indivKeys[length]].time}
 		</div>
 	));
