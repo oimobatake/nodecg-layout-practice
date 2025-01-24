@@ -24,8 +24,7 @@
 		"inlineSourceMap": false,
 
 		"typeRoots": [
-			"types",
-			"src/types"
+			"./node_modules/@types", "./src/types"
 		]
 	},
 	"include": ["src/**/*.ts", "src/**/*.tsx", "node_modules/@nodecg/types/augment-window.d.ts"]
