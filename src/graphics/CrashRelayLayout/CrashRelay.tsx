@@ -49,7 +49,7 @@ export function Index() {
       <img src="/AllGems_event_logo.png" className={styles.eventLogo} alt="Event Logo" />
 
       {// keyはReact側に渡すもので、コンポーネントのpropとは関係ない、keyが無いと全て再レンダリングされてしまうので、
-	   // 今回の様な固定位置に関してはkeyを設定してしまった方が効率が良い
+	   // 今回の様な固定位置に関してはkeyを設定してしまった方が効率が良い。
 	   framePositions.map((pos, index) => (
         <Frame key={index} position={pos} />
       ))}
