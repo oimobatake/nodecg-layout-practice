@@ -38,12 +38,6 @@
     ],
     "graphics": [
       {
-        "file": "LearningLayout/Rlearning.html",
-        "width": 1920,
-        "height": 1080,
-        "singleInstance": false
-      },
-      {
         "file": "CrashRelayLayout/index.html",
         "width": 1920,
         "height": 1080,
@@ -84,7 +78,7 @@
   "devDependencies": {
     "@nodecg/types": "^2.0.0",
     "@parcel/config-default": "*",
-    "@parcel/core": "*",
+    "@parcel/core": "^2.13.3",
     "@parcel/reporter-cli": "*",
     "@parcel/validator-typescript": "*",
     "@types/node": "^18",

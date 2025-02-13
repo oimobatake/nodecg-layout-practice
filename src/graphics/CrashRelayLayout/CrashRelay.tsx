@@ -22,10 +22,10 @@ export function Index() {
   // UI配置
   // チームのstyle情報をまとめる
   const teamPositionMap: Record<string, { timer: string; frame: string; name: string; stream: string }> = {
-	"Aチーム": { timer: styles.leftTopTimer, frame: styles.frameLeftTop, name: styles.nameLeftTop, stream: styles.leftTopStreamFrame },
-	"Bチーム": { timer: styles.rightTopTimer, frame: styles.frameRightTop, name: styles.nameRightTop, stream: styles.rightTopStreamFrame },
-	"Cチーム": { timer: styles.leftBottomTimer, frame: styles.frameLeftBottom, name: styles.nameLeftBottom, stream: styles.leftBottomStreamFrame },
-	"Dチーム": { timer: styles.rightBottomTimer, frame: styles.frameRightBottom, name: styles.nameRightBottom, stream: styles.rightBottomStreamFrame },
+    "Aチーム": { timer: styles.leftTopTimer, frame: styles.frameLeftTop, name: styles.nameLeftTop, stream: styles.leftTopStreamFrame },
+    "Bチーム": { timer: styles.rightTopTimer, frame: styles.frameRightTop, name: styles.nameRightTop, stream: styles.rightTopStreamFrame },
+    "Cチーム": { timer: styles.leftBottomTimer, frame: styles.frameLeftBottom, name: styles.nameLeftBottom, stream: styles.leftBottomStreamFrame },
+    "Dチーム": { timer: styles.rightBottomTimer, frame: styles.frameRightBottom, name: styles.nameRightBottom, stream: styles.rightBottomStreamFrame },
   };
 
   // タイマーポジションをチームIDと紐づける

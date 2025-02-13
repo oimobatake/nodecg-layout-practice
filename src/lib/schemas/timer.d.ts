@@ -4,20 +4,5 @@
  * DO NOT MODIFY IT BY HAND. Instead, modify the source JSONSchema file,
  * and run json-schema-to-typescript to regenerate this file.
  */
-
-export type Timer = Timer1;
-
-export interface Timer1 {
-	time: string;
-	state: 'stopped' | 'running' | 'paused' | 'finished';
-	milliseconds: number;
-	timestamp: number;
-	teamFinishTimes: {
-		[k: string]: {
-			time: string;
-			state: 'forfeit' | 'completed';
-			milliseconds: number;
-			timestamp: number;
-		};
-	};
-}
+import * as Timer1 from './runFinishTimes';
+export type Timer = Timer1.Timer;

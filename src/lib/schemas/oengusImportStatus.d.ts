@@ -4,11 +4,6 @@
  * DO NOT MODIFY IT BY HAND. Instead, modify the source JSONSchema file,
  * and run json-schema-to-typescript to regenerate this file.
  */
+import {ScheduleImportStatus} from './horaroImportStatus';
 
 export type OengusImportStatus = ScheduleImportStatus;
-
-export interface ScheduleImportStatus {
-	importing?: boolean;
-	item?: number;
-	total?: number;
-}
